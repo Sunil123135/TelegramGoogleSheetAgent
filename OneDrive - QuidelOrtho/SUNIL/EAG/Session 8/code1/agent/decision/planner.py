@@ -120,7 +120,7 @@ Important:
 - Use descriptive step_ids
 - You MUST only use tools from the Available tools list above
 - NEVER use tools like "python", "execute", "run", or any tool not in the Available tools list
-- For F1 standings: use extract_webpage with the F1 standings URL
+- For F1 standings: use extract_webpage with URL https://www.formula1.com/en/results/2025/drivers to scrape the driver standings table
 - For Google Sheets: use google_sheets_upsert with spreadsheet_title, sheet_name, rows
 - For sharing: use google_drive_share with file_id from previous step
   * For public sharing (anyone with link): {{"type": "anyone", "role": "reader"}}
@@ -199,13 +199,16 @@ Respond with ONLY the JSON array, no additional text."""
             email_match = re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", goal)
             # Use SELF_EMAIL from environment, or email found in goal, or placeholder
             to_email = email_match.group(0) if email_match else os.environ.get("SELF_EMAIL", "your_email@example.com")
-            # 1) Extract webpage (F1 driver standings)
+            # Get F1 URL from environment or use 2025 default
+            f1_url = os.environ.get("F1_STANDINGS_URL", "https://www.formula1.com/en/results/2025/drivers")
+            
+            # 1) Extract webpage (F1 driver standings) using Trafilatura
             steps.append(PlanStep(
                 step_id="step1",
                 tool="extract_webpage",
-                args={"url": "https://www.formula1.com/en/results.html/2025/drivers.html"},
+                args={"url": f1_url},
                 depends_on=[],
-                description="Extract F1 driver standings page",
+                description="Extract 2025 F1 driver standings from web using Trafilatura",
                 status="pending"
             ))
 
@@ -214,12 +217,12 @@ Respond with ONLY the JSON array, no additional text."""
                 step_id="step2",
                 tool="google_sheets_upsert",
                 args={
-                    "spreadsheet_title": "F1_Current_Standings",
-                    "sheet_name": "Drivers",
+                    "spreadsheet_title": "F1_2025_Driver_Standings",
+                    "sheet_name": "Drivers_2025",
                     "rows": "{step1.rows}"
                 },
                 depends_on=["step1"],
-                description="Create/update Google Sheet with standings data",
+                description="Create/update Google Sheet with 2025 F1 driver standings data",
                 status="pending"
             ))
 

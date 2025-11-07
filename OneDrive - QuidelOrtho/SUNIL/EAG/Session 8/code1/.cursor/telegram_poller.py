@@ -47,9 +47,16 @@ async def handle(text: str) -> str:
         print("[DEBUG] Starting workflow execution...")
         
         try:
-            res = await agent.execute_workflow(
-                "Find the Current Point Standings of F1 Racers, then put that into a Google Excel Sheet, and then share the link to this sheet with yourself on Gmail, and share the screenshot"
-            )
+            # Get F1 URL from environment or use default
+            f1_url = os.environ.get('F1_STANDINGS_URL', 'https://www.formula1.com/en/results/2025/drivers')
+            
+            workflow_goal = f"""Extract the 2025 F1 Driver Standings table from {f1_url} using web scraping.
+Parse the table with columns: Position, Driver, Nationality, Team, and Points.
+Create a Google Sheet with this data, share it with me, and send me the link via Gmail."""
+            
+            print(f"[DEBUG] Workflow goal: {workflow_goal[:100]}...")
+            
+            res = await agent.execute_workflow(workflow_goal)
             
             print(f"[DEBUG] Workflow result: success={res.get('success')}")
             
