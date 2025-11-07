@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG Highlighter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>🔍 RAG Highlighter</h1>
+      <p class="tagline">Private Local Semantic Search</p>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="stats">
+      <div class="stat-item">
+        <span class="stat-label">Pages Captured:</span>
+        <span class="stat-value" id="pageCount">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Index Status:</span>
+        <span class="stat-value" id="indexStatus">Not Loaded</span>
+      </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-box">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search your browsing history..."
+          autocomplete="off"
+        >
+        <button id="searchBtn" class="btn btn-primary">Search</button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+      <div id="resultsContainer"></div>
+    </section>
+
+    <!-- Actions Section -->
+    <section class="actions-section">
+      <button id="exportBtn" class="btn btn-secondary">
+        📥 Export pages.json
+      </button>
+      <button id="clearBtn" class="btn btn-danger">
+        🗑️ Clear Pages
+      </button>
+    </section>
+
+    <!-- Help Section -->
+    <section class="help-section">
+      <details>
+        <summary>ℹ️ How to use</summary>
+        <div class="help-content">
+          <ol>
+            <li><strong>Browse</strong>: Pages are auto-captured (skips Gmail, banking, etc.)</li>
+            <li><strong>Export</strong>: Click "Export pages.json" to download your crawl</li>
+            <li><strong>Build Index</strong>: Use Google Colab to create vectors.bin + meta.json</li>
+            <li><strong>Import Bundle</strong>: Place bundle files in chrome_ext/bundle/</li>
+            <li><strong>Search</strong>: Type a query and click results to highlight!</li>
+          </ol>
+          <p class="help-note">
+            📚 See <a href="https://github.com/yourusername/rag-highlighter#readme" target="_blank" rel="noopener">README.md</a> for full Colab steps.
+          </p>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <script src="DECISION.js"></script>
+  <script src="MEMORY.js"></script>
+  <script src="ACTION.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
+

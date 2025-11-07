@@ -1,0 +1,47 @@
+# Chrome Extension .gitignore
+
+# Bundle files (user-generated)
+bundle/vectors.bin
+bundle/meta.json
+
+# Icons are generated but committed for convenience
+# Uncomment to ignore:
+# icons/*.png
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Node modules (if you add build tools later)
+node_modules/
+
+# Distribution files
+dist/
+build/
+
+# User data exports
+pages_*.json
+
